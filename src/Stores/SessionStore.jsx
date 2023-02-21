@@ -24,7 +24,7 @@ const SessionProvider = ({ children }) => {
 
       if (data.token !== null) {
         auth.me().then((res) => {
-          console.log({ res });
+          // console.log({ res });
           if (!res.status) {
             alert("Token anda sudah expired");
             sessionStorage.removeItem("ssid");

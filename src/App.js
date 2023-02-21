@@ -9,6 +9,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import ShowPolling from "./Pages/ShowPolling";
+import CreatePoll from "./Pages/CreatePoll";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/polling/:id" element={<ShowPolling />} />
+          <Route path="/polling/create" element={<CreatePoll />} />
         </Routes>
       </SessionProvider>
     </BrowserRouter>

@@ -25,15 +25,30 @@ const Pollings = () => {
       <Layout>
         <div className="container-fluid">
           <div className="row">
-            {pollings.map((polling, i) => {
+            {pollings?.map((polling, i) => {
               return (
-                <div className="col-3 mb-4" key={i}>
+                <div className="col-md-3 mb-4" key={i}>
                   <div className="card">
                     <div
                       align="center"
                       className="text-center card-header fs-6 d-flex fw-bold justify-content-center align-items-center"
                     >
-                      {polling?.question}
+                      <div className="container-fluid p-0">
+                        <div className="row">
+                          <img
+                            className="rounded"
+                            src={`http://localhost:8000/${polling?.thumbnail}`}
+                            height="80"
+                            alt=""
+                            style={{ objectFit: "cover" }}
+                          />{" "}
+                        </div>
+                        <div className="row">
+                          <span className="text-center mt-2">
+                            {polling?.question}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                     <div className="card-body">
                       <small>
@@ -45,7 +60,10 @@ const Pollings = () => {
                       </small>
                       <br />
                       <div className="container-fluid mt-2 d-flex justify-content-end p-0">
-                        <Link to={`/polling/${polling?.id}`} className="fw-bold mt-2 btn btn-primary btn-sm">
+                        <Link
+                          to={`/polling/${polling?.id}`}
+                          className="fw-bold mt-2 btn btn-primary btn-sm"
+                        >
                           VOTE
                         </Link>
                       </div>
