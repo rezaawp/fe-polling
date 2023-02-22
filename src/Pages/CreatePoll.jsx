@@ -7,6 +7,7 @@ const CreatePoll = () => {
     question: "",
     thumbnail: "",
     choises: "",
+    deadline: "",
   });
 
   const storePolling = async () => {
@@ -42,7 +43,6 @@ const CreatePoll = () => {
                 setDataPoll({ ...dataPoll, question: e.target.value })
               }
             />{" "}
-            <br />
             <label htmlFor="">Choises : </label>
             <textarea
               name=""
@@ -54,7 +54,6 @@ const CreatePoll = () => {
                 setDataPoll({ ...dataPoll, choises: e.target.value })
               }
             ></textarea>{" "}
-            <br />
             <label htmlFor="">Thumbnail : </label> <br />
             <input
               type="file"
@@ -62,6 +61,15 @@ const CreatePoll = () => {
               className="form-control"
               onChange={(e) =>
                 setDataPoll({ ...dataPoll, thumbnail: e.target.files[0] })
+              }
+            />{" "}
+            <label htmlFor="">Deadline : </label> <br />
+            <input
+              type="datetime-local"
+              placeholder="Deadline"
+              className="form-control"
+              onChange={(e) =>
+                setDataPoll({ ...dataPoll, deadline: e.target.value })
               }
             />{" "}
             <br />

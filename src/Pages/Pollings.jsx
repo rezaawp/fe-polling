@@ -31,7 +31,8 @@ const Pollings = () => {
                   <div className="card">
                     <div
                       align="center"
-                      className="text-center card-header fs-6 d-flex fw-bold justify-content-center align-items-center"
+                      className="text-center card-header fs-6 d-flex fw-bold justify-content-center align-items-start"
+                      style={{ height: "150px" }}
                     >
                       <div className="container-fluid p-0">
                         <div className="row">

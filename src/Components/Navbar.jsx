@@ -1,12 +1,13 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../Hooks/auth";
 
 const Navbar = () => {
+  const location = useLocation("").pathname;
+
   const navigate = useNavigate("");
   const doLogout = () => {
     auth.logout().then((res) => {
-      console.log(res);
       if (res.status) {
         sessionStorage.removeItem("ssid");
         navigate("/login");
@@ -17,35 +18,63 @@ const Navbar = () => {
   useEffect(() => {}, []);
 
   return (
-    <div
-      className="container-fluid bg-light fixed-top"
-      style={{
-        height: "60px",
-        display: "inline-block !important",
-      }}
-    >
-      <div
-        className="container-fluid d-flex align-items-center"
-        style={{ height: "100%" }}
-      >
-        <div className="row">
-          <div className="col-6 ">
-            <span className="fw-bold fs-3 me-4">Pollings</span>
-          </div>
-
-          <div className="col-6 d-flex align-items-center justify-content-end gap-3">
-            <span className="fw-bold">Home</span>
-            <span>Votes</span>
-            <span>Profile</span>
-            <span onClick={doLogout} style={{ cursor: "pointer" }}>
-              Logout
-            </span>
-          </div>
+    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div className="container-fluid">
+        <Link className="navbar-brand fw-bold" href="#">
+          Pollings
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${location == "/" && "active fw-bold"}`}
+                aria-current="page"
+                to={"/"}
+              >
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${
+                  location == "/polling/create" && "active fw-bold"
+                }`}
+                to={"/polling/create"}
+              >
+                Create
+              </Link>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                My Polling
+              </a>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                href="#"
+                tabIndex={-1}
+                aria-disabled="true"
+                onClick={doLogout}
+              >
+                Logout
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
-
-      <div className="container-fluid d-flex align-item-center justify-content-end"></div>
-    </div>
+    </nav>
   );
 };
 

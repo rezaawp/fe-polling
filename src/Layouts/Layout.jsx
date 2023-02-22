@@ -6,8 +6,8 @@ const Layout = ({ children }) => {
     <>
       <Navbar />
       <div
-        className="container-fluid"
-        style={{ width: "90%", height: "500px", marginTop: "80px" }}
+        className="container-fluid mt-3 pt-5"
+        style={{ width: "90%", height: window.screen.height - 150 }}
       >
         {children}
       </div>
