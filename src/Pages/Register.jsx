@@ -19,7 +19,6 @@ const Register = () => {
         alert("register gagal");
       }
     });
-    console.log({ name, email, password });
   };
 
   return (

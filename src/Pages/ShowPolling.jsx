@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MagnifyingGlass } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import polling from "../Hooks/pollings";
 import votes from "../Hooks/vote";
 import Layout from "../Layouts/Layout";
 import Voted from "./Voted";
+import { User } from "../Stores/SessionStore";
 
 const ShowPolling = () => {
   const params = useParams();
+  const Session = useContext(User);
+  const userId = Session.user_id;
 
   const [data, setData] = useState({});
   const [choiseId, setChoiseId] = useState();
@@ -21,7 +24,7 @@ const ShowPolling = () => {
       const dataSession = JSON.parse(votesSession);
 
       dataSession.map((item) => {
-        if (item.polling_id == params.id) {
+        if (item.polling_id == params.id && item.user_id == userId) {
           setIsVote(true);
           getPoll();
           return;
@@ -45,7 +48,10 @@ const ShowPolling = () => {
         }
       });
 
-      dataSession = [...dataSession, { polling_id: params.id }];
+      dataSession = [
+        ...dataSession,
+        { polling_id: params.id, user_id: userId },
+      ];
 
       sessionStorage.setItem("votes", JSON.stringify(dataSession));
       setIsVote(true);
@@ -83,7 +89,6 @@ const ShowPolling = () => {
       choise_id: choiseId,
     });
 
-    console.log(result);
     if (result.status) {
       alert("Vote berhasil");
       storeSessionVote();

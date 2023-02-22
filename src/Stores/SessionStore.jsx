@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../Hooks/auth";
+import jwtDecode from "jwt-decode";
 
 export const User = React.createContext({});
 
@@ -10,6 +11,9 @@ const SessionProvider = ({ children }) => {
   const data = {
     token: sessionStorage.getItem("ssid"),
     base_url_api: process.env.REACT_APP_BASE_URL_API,
+    user_id: sessionStorage.getItem("ssid")
+      ? jwtDecode(sessionStorage.getItem("ssid")).sub
+      : "",
   };
 
   useEffect(() => {
