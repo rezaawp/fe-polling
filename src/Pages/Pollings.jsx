@@ -1,10 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { InfinitySpin } from "react-loader-spinner";
-import { Link, useNavigate } from "react-router-dom";
-import auth from "../Hooks/auth";
+import { Link } from "react-router-dom";
 import polling from "../Hooks/pollings";
 import Layout from "../Layouts/Layout";
-import { User } from "../Stores/SessionStore";
 
 const Pollings = () => {
   const [pollings, setPollings] = useState([]);

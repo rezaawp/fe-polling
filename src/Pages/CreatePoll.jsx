@@ -37,10 +37,6 @@ const CreatePoll = () => {
 
       return newArr;
     });
-    // setDataPoll({
-    //   ...dataPoll,
-    //   choises: arr[index].value,
-    // });
   };
 
   const [dataPoll, setDataPoll] = useState({
