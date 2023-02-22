@@ -24,7 +24,6 @@ const ShowPolling = () => {
         if (item.polling_id == params.id) {
           setIsVote(true);
           getPoll();
-
           return;
         }
       });
@@ -42,7 +41,6 @@ const ShowPolling = () => {
         if (item.polling_id == params.id) {
           setIsVote(true);
           getPoll();
-
           return;
         }
       });
@@ -69,13 +67,12 @@ const ShowPolling = () => {
       let result = await polling.show(params.id);
       if (result.data.is_deadline) {
         setDeadline(true);
+        setIsVote(true);
       }
       setData(result.data);
-      console.log({ result });
       setLoading(false);
     } catch (e) {
       setLoading(true);
-
       console.log({ e });
     }
   };
@@ -93,7 +90,6 @@ const ShowPolling = () => {
     } else if (!result.status) {
       if (result.message == "sudah pernah vote") {
         alert("anda sudah pernah mengisi vote ini");
-        storeSessionVote();
       } else {
         alert("ada beberapa kesalahan. tidak dapa menyimpan vote");
       }
@@ -171,7 +167,7 @@ const ShowPolling = () => {
           )}
         </>
       ) : (
-        <Voted polling={data} loading={loading} />
+        <Voted polling={data} loading={loading} deadline={deadline} />
       )}
     </Layout>
   );

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Voted = (props) => {
   const dataPolling = props?.polling;
   const loading = props.loading;
+  const deadline = props.deadline;
 
-  console.log({ loading });
   return (
     <>
       <div
@@ -32,7 +32,6 @@ const Voted = (props) => {
             </svg>
 
             <div>
-              <h5 className="fw-bold text-center">ANDA SUDAH MENGISI</h5> <br />
               {loading ? (
                 <ProgressBar
                   height="80"
@@ -45,6 +44,14 @@ const Voted = (props) => {
                 />
               ) : (
                 <>
+                  {deadline ? (
+                    <h5 className="fw-bold text-center">
+                      KUIS INI SUDAH MELEWATI DEADLINE
+                    </h5>
+                  ) : (
+                    <h5 className="fw-bold text-center">ANDA SUDAH MENGISI</h5>
+                  )}
+                  <br />
                   <h6>Result : </h6>
                   <h6>Q: {dataPolling.question}</h6>
                   {dataPolling?.choises?.map((choise, i) => {
