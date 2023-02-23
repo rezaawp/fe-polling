@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { MagnifyingGlass } from "react-loader-spinner";
+import { LineWave, MagnifyingGlass } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import polling from "../Hooks/pollings";
 import votes from "../Hooks/vote";
@@ -17,6 +17,7 @@ const ShowPolling = () => {
   const [isVote, setIsVote] = useState(false);
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(false);
+  const [loadingVote, setLoadingVote] = useState(false);
 
   const checkVote = () => {
     if (sessionStorage.getItem("votes")) {
@@ -84,20 +85,29 @@ const ShowPolling = () => {
   };
 
   const vote = async () => {
-    const result = await votes.store({
-      polling_id: params.id,
-      choise_id: choiseId,
-    });
+    try {
+      setLoadingVote(true);
+      const result = await votes.store({
+        polling_id: params.id,
+        choise_id: choiseId,
+      });
 
-    if (result.status) {
-      alert("Vote berhasil");
-      storeSessionVote();
-    } else if (!result.status) {
-      if (result.message == "sudah pernah vote") {
-        alert("anda sudah pernah mengisi vote ini");
-      } else {
-        alert("ada beberapa kesalahan. tidak dapa menyimpan vote");
+      if (result.status) {
+        setLoadingVote(false);
+        // setTimeout(() => {
+        //   alert("Vote berhasil");
+        // }, 100);
+        storeSessionVote();
+      } else if (!result.status) {
+        if (result.message == "sudah pernah vote") {
+          alert("anda sudah pernah mengisi vote ini");
+        } else {
+          alert("ada beberapa kesalahan. tidak dapa menyimpan vote");
+        }
       }
+    } catch (e) {
+      setLoadingVote(true);
+      console.log({ e });
     }
   };
 
@@ -161,6 +171,20 @@ const ShowPolling = () => {
                     })}
 
                     <div className="container-fluid d-flex justify-content-end mt-3">
+                      {loadingVote && (
+                        <LineWave
+                          height="30"
+                          width="30"
+                          color="#4fa94d"
+                          ariaLabel="line-wave"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                          visible={true}
+                          firstLineColor=""
+                          middleLineColor=""
+                          lastLineColor=""
+                        />
+                      )}
                       <button className="btn btn-primary" onClick={vote}>
                         Vote
                       </button>

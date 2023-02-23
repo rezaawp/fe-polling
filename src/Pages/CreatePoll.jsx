@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { LineWave } from "react-loader-spinner";
 import polling from "../Hooks/pollings";
 import Layout from "../Layouts/Layout";
 
 const CreatePoll = () => {
+  const [loading, setLoading] = useState(false);
   const inputArr = [
     {
       type: "text",
@@ -48,6 +50,7 @@ const CreatePoll = () => {
 
   const storePolling = async () => {
     try {
+      setLoading(true);
       const choises = arr.map((item, i) => {
         return item.value;
       });
@@ -58,7 +61,10 @@ const CreatePoll = () => {
       });
 
       if (result.status) {
-        alert("sukses membuat polling");
+        setLoading(false);
+        setTimeout(() => {
+          alert("sukses membuat polling");
+        }, 100);
       } else if (!result.status) {
         alert("gagal membuat polling");
         console.log(result);
@@ -105,6 +111,7 @@ const CreatePoll = () => {
                 return (
                   <div className="input-group mb-3" key={i}>
                     <input
+                      autoComplete="off"
                       className="form-control"
                       onChange={handleChange}
                       value={item.value}
@@ -134,16 +141,6 @@ const CreatePoll = () => {
                 Add Choise (+)
               </button>
             </div>
-            {/* <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              className="form-control"
-              onChange={(e) =>
-                setDataPoll({ ...dataPoll, choises: e.target.value })
-              }
-            ></textarea>{" "} */}
             <label htmlFor="">Thumbnail : </label> <br />
             <input
               type="file"
@@ -163,9 +160,25 @@ const CreatePoll = () => {
               }
             />{" "}
             <br />
-            <button className="btn btn-primary" onClick={storePolling}>
-              CREATE
-            </button>
+            <div className="container-flluid d-flex p-0">
+              <button className="btn btn-primary" onClick={storePolling}>
+                CREATE
+              </button>
+              {loading && (
+                <LineWave
+                  height="30"
+                  width="50"
+                  color="#4fa94d"
+                  ariaLabel="line-wave"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  firstLineColor=""
+                  middleLineColor=""
+                  lastLineColor=""
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
