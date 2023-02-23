@@ -94,9 +94,6 @@ const ShowPolling = () => {
 
       if (result.status) {
         setLoadingVote(false);
-        // setTimeout(() => {
-        //   alert("Vote berhasil");
-        // }, 100);
         storeSessionVote();
       } else if (!result.status) {
         if (result.message == "sudah pernah vote") {
