@@ -1,21 +1,29 @@
 import { useState } from "react";
+import { LineWave } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../Hooks/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const doLogin = () => {
-    auth.login({ email, password }).then((res) => {
+  const doLogin = async () => {
+    try {
+      setLoading(true);
+      const res = await auth.login({ email, password });
       if (res.status) {
         sessionStorage.setItem("ssid", res.data.token);
+        setLoading(false);
         navigate("/");
       } else if (!res.status) {
         alert("login gagal");
       }
-    });
+    } catch (e) {
+      setLoading(true);
+      console.log({ e });
+    }
   };
 
   return (
@@ -38,13 +46,30 @@ const Login = () => {
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="btn btn-primary mt-3 fw-bold" onClick={doLogin}>
-        Login
-      </button>
-      <br />
+
+      <div className="container-fluid d-flex p-0 pb-0">
+        <button className="btn btn-primary mt-3 fw-bold" onClick={doLogin}>
+          Login
+        </button>
+        {loading && (
+          <LineWave
+            height="50"
+            width="50"
+            color="#4fa94d"
+            ariaLabel="line-wave"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            firstLineColor=""
+            middleLineColor=""
+            lastLineColor=""
+          />
+        )}
+      </div>
       <label htmlFor="" className="mt-3">
         Belum punya akun? <Link to={"/register"}>Register</Link>
       </label>
+      <br />
     </div>
   );
 };
