@@ -14,6 +14,9 @@ const SessionProvider = ({ children }) => {
     user_id: sessionStorage.getItem("ssid")
       ? jwtDecode(sessionStorage.getItem("ssid")).sub
       : "",
+    user_name: sessionStorage.getItem("ssid")
+      ? jwtDecode(sessionStorage.getItem("ssid")).username
+      : "",
   };
 
   useEffect(() => {

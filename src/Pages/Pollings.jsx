@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import polling from "../Hooks/pollings";
 import Layout from "../Layouts/Layout";
 
-const Pollings = () => {
+const Pollings = (props) => {
+  const echo = props.echo;
   const [pollings, setPollings] = useState([]);
   const [noPolling, setNoPolling] = useState(false);
   const [laoding, setLoading] = useState(false);
-
+  echo.channel("polling").listen("PollingEvent", (e) => {
+    setPollings([...pollings, e[0]]);
+  });
   const getAllPoll = async () => {
     try {
       setLoading(true);
@@ -34,6 +37,7 @@ const Pollings = () => {
       <Layout>
         <div className="container-fluid" style={{ height: "100%" }}>
           <div className="row" style={{ height: "100%" }}>
+            {/* {newPoll.status} */}
             {laoding ? (
               <>
                 <div

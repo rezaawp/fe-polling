@@ -7,10 +7,11 @@ import Layout from "../Layouts/Layout";
 import Voted from "./Voted";
 import { User } from "../Stores/SessionStore";
 
-const ShowPolling = () => {
+const ShowPolling = (props) => {
   const params = useParams();
   const Session = useContext(User);
   const userId = Session.user_id;
+  const echo = props.echo;
 
   const [data, setData] = useState({});
   const [choiseId, setChoiseId] = useState();
@@ -18,6 +19,10 @@ const ShowPolling = () => {
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(false);
   const [loadingVote, setLoadingVote] = useState(false);
+
+  echo.channel("vote").listen("VoteEvent", (e) => {
+    setData(e[0]);
+  });
 
   const checkVote = () => {
     if (sessionStorage.getItem("votes")) {
@@ -60,7 +65,7 @@ const ShowPolling = () => {
     } else {
       sessionStorage.setItem(
         "votes",
-        JSON.stringify([{ polling_id: params.id }])
+        JSON.stringify([{ polling_id: params.id, user_id: userId }])
       );
       setIsVote(true);
       getPoll();
@@ -100,6 +105,7 @@ const ShowPolling = () => {
           alert("anda sudah pernah mengisi vote ini");
         } else {
           alert("ada beberapa kesalahan. tidak dapa menyimpan vote");
+          console.log({ result });
         }
       }
     } catch (e) {

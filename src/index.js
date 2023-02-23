@@ -1,13 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+window.Pusher = Pusher;
+
+window.Echo = new Echo({
+  broadcaster: "pusher",
+  key: "polling_key",
+  wsHost: "localhost",
+  wsPort: 6001,
+  wssPort: 6001,
+  forceTLS: false,
+  disableStats: true,
+  enabledTransports: ["ws", "wss"],
+  cluster: "mt1",
+});
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <App echo={window.Echo} />
   </React.StrictMode>
 );
 

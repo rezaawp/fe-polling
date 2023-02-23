@@ -11,15 +11,16 @@ import Register from "./Pages/Register";
 import ShowPolling from "./Pages/ShowPolling";
 import CreatePoll from "./Pages/CreatePoll";
 
-function App() {
+function App(props) {
+  const echo = props.echo;
   return (
     <BrowserRouter>
       <SessionProvider>
         <Routes>
-          <Route path="/" element={<Pollings />} />
+          <Route path="/" element={<Pollings echo={echo} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/polling/:id" element={<ShowPolling />} />
+          <Route path="/polling/:id" element={<ShowPolling echo={echo} />} />
           <Route path="/polling/create" element={<CreatePoll />} />
         </Routes>
       </SessionProvider>

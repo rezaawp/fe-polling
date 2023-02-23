@@ -5,7 +5,7 @@ const Voted = (props) => {
   const dataPolling = props?.polling;
   const loading = props.loading;
   const deadline = props.deadline;
-
+  console.log({ dataPolling });
   return (
     <>
       <div

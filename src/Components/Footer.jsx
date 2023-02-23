@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import { User } from "../Stores/SessionStore";
+
 const Footer = () => {
+  const Session = useContext(User);
   return (
     <div className="container-fluid bg-light fixed-bottom text-center shadow">
-      Reza Khoirul Wijaya Putra
+      {Session.user_name}
     </div>
   );
 };
