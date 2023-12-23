@@ -6,6 +6,7 @@ import Layout from "../Layouts/Layout";
 
 const Pollings = (props) => {
   const echo = props.echo;
+  const base_url_api = process.env.REACT_APP_BASE_URL_API;
   const [pollings, setPollings] = useState([]);
   const [noPolling, setNoPolling] = useState(false);
   const [laoding, setLoading] = useState(false);
@@ -73,7 +74,7 @@ const Pollings = (props) => {
                                 <div className="row">
                                   <img
                                     className="rounded"
-                                    src={`http://localhost:8000/${polling?.thumbnail}`}
+                                    src={`${base_url_api}/${polling?.thumbnail}`}
                                     height="80"
                                     alt=""
                                     style={{ objectFit: "cover" }}

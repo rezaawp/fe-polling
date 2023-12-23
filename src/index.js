@@ -11,9 +11,9 @@ window.Pusher = Pusher;
 window.Echo = new Echo({
   broadcaster: "pusher",
   key: "polling_key",
-  wsHost: "localhost",
-  wsPort: 6001,
-  wssPort: 6001,
+  wsHost: "ws-be-polling.rezawp.my.id",
+  wsPort: 80,
+  wssPort: 80,
   forceTLS: false,
   disableStats: true,
   enabledTransports: ["ws", "wss"],
